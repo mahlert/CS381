@@ -49,13 +49,11 @@ checkbag [] (_,_)  = False
 checkbag ((bagItem, bagItemCount):xs) (item, count) | bagItem == item && count == bagItemCount = True
                                                     | otherwise = checkbag xs (item, count)
 
+-- ELP
 -- e. computes the interesection of two multisets
 isbag :: Eq a => Bag a -> Bag a -> Bag a
 isbag bag1 [] = []
 isbag [] bag2 = []
-isbag ((bagItem1, x):xs) bag2 = case insecBag bag2 bagItem1 of
-                             True -> isbag xs bag2
-                             False ->  isbag bagItem1 bag2
 
 --HELP (for part e)
 insecBag :: Eq a => Bag a -> Bag a -> [a] -> Bag a
