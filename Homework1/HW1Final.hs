@@ -2,6 +2,9 @@ module HW1types where
 
 import Data.List (nub,sort)
 
+norm :: Ord a => [a] -> [a]
+norm = sort . nub
+
 type Node = Int
 type Edge = (Node,Node)
 type Graph = [Edge]
@@ -95,12 +98,9 @@ size :: Bag a -> Int
 size [] = 0
 size ((element, counter):xs) = counter + size xs
 
-norm :: Ord a => [a] -> [a]
-norm = sort . nub
-
 nodes :: Graph -> [Node]
+nodes [] = []
 nodes ((x,y):xs) = norm (x : y : nodes xs)
-nodes _ = []
 
 suc :: Node -> Graph -> [Node]
 suc a [] = []
