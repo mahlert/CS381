@@ -1,6 +1,27 @@
+module HW1types where
+
+import Data.List (nub,sort)
+
+type Node = Int
+type Edge = (Node,Node)
+type Graph = [Edge]
+type Path = [Node]
 
 type Contents a = (a, Int)
 type Bag a = [Contents a]
+
+type Number = Int
+type Point = (Number,Number)
+type Length = Number
+
+data Shape = Pt Point
+            | Circle Point Length
+            | Rect Point Length Length
+            deriving Show
+
+type Figure = [Shape]
+type BBox = (Point,Point)
+
 b1 :: Bag Int
 b2 :: Bag Int
 b3 :: Bag Int
@@ -74,15 +95,6 @@ size :: Bag a -> Int
 size [] = 0
 size ((element, counter):xs) = counter + size xs
 
-module HW1types where
-
-import Data.List (nub,sort)
-
-type Node = Int
-type Edge = (Node,Node)
-type Graph = [Edge]
-type Path = [Node]
-
 norm :: Ord a => [a] -> [a]
 norm = sort . nub
 
@@ -107,19 +119,6 @@ cyc :: Int -> Graph
 cyc c = take c (zip [1..c+1] [2..c+1])
 
 main = print (map width [Pt (4,4), Circle(5,5) 3, Rect (3,3) 7 2])
-
-type Number = Int
-
-type Point = (Number,Number)
-type Length = Number
-
-data Shape = Pt Point
-            | Circle Point Length
-            | Rect Point Length Length
-            deriving Show
-
-type Figure = [Shape]
-type BBox = (Point,Point)
 
 width :: Shape -> Length
 width (Pt _) = 0
