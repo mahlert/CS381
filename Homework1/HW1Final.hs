@@ -120,74 +120,75 @@ cyc c = take c (zip [1..c+1] [2..c+1])
 
 main = print (map width [Pt (4,4), Circle(5,5) 3, Rect (3,3) 7 2])
 
+--part a--
 width :: Shape -> Length
 width (Pt _) = 0
 width (Circle _ r) = 2 * r
 width (Rect _ l _) = l
 
-
+--part b--
 bbox :: Shape -> BBox
 bbox (Pt (x,y)) = ((x,y), (x,y))
 bbox (Circle (x,y) r) = ((x-r,y-r), (x+r,y+r))
 bbox (Rect (x,y) l w) = ((x,y), (x+l,y+w))
 
+--part c - returns smallest x coord of shape--
 minX :: Shape -> Number
 minX (Pt (x,y)) = x
 minX (Circle (x,y) r) = (x-r)
 minX (Rect (x,y) l w) = x
 
+--helper func - returns smallest y coord of shape--
 minY :: Shape -> Number
 minY (Pt (x,y)) = y
 minY (Circle (x,y) r) = (y-r)
 minY (Rect (x,y) l w) = y
 
+--helper func - returns largest x coord of shape--
 maxX :: Shape -> Number
 maxX (Pt (x,y)) = x
 maxX (Circle (x,y) r) = (x+r)
 maxX (Rect (x,y) l w) = x+l
 
+--helper func - returns largest y coord of shape--
 maxY :: Shape -> Number
 maxY (Pt (x,y)) = y
 maxY (Circle (x,y) r) = (y+r)
 maxY (Rect (x,y) l w) = y+w
 
+--helper function to part d--
 addPt :: Point -> Point -> Point
 addPt (x,y) (dx, dy) = (x+dx,y+dy)
 
+-- part d--
 move :: Shape -> Point -> Shape
 move (Pt (x,y)) (dx,dy) = (Pt (addPt (x,y) (dx,dy)))
 move (Circle (x,y) r) (dx,dy) = (Circle (addPt (x,y) (dx,dy)) r)
 move (Rect (x,y) l w) (dx,dy) = (Rect (addPt (x,y) (dx,dy)) l w)
 
+--helper function to part e--
 moveToX :: Number -> Shape -> Shape
 moveToX n (Pt (x,y))        = (Pt (n,y))
 moveToX n (Circle (x,y) r)  = (Circle (n,y) r)
 moveToX n (Rect (x,y) l w)  = (Rect (n,y) l w)
 
+-- part e --
 alignLeft :: Figure -> Figure
 alignLeft [] = []
 alignLeft (s:ss) = [(moveToX (minX s) s)] ++ alignLeft ss
 
+-- part f --
 inside :: Shape -> Shape -> Bool
 inside (Pt (x,y)) (Pt (a,b)) = x==a  && y==b
---side (Shape s) (Pt (a,b)) = a>=(minX (Shape s))
-inside (Pt (x,y)) (Circle (a,b) r) = x>=(minX (Circle (a,b) r)) &&
-                                     x<=(maxX (Circle (a,b) r)) &&
-                                     y>=(minY (Circle (a,b) r)) &&
-                                     y<=(maxY (Circle (a,b) r))
-inside (Circle (a,b) r) (Pt (x,y)) = x>=(minX (Circle (a,b) r)) &&
-                                     x<=(maxX (Circle (a,b) r)) &&
-                                     y>=(minY (Circle (a,b) r)) &&
-                                     y<=(maxY (Circle (a,b) r))
-inside (Circle (x,y) r) (Circle (a,b) s) =  x>=(minX (Circle (a,b) r)) &&
-                                            x<=(maxX (Circle (a,b) r)) &&
-                                            y>=(minY (Circle (a,b) r)) &&
-                                            y<=(maxY (Circle (a,b) r))
-inside (Rect (x,y) l1 w1) (Rect (a,b) l2 w2) = x>=(minX (Rect (a,b) l2 w2)) &&
-                                               x<=(maxX (Rect (a,b) l2 w2)) &&
-                                               y>=(minY (Rect (a,b) l2 w2)) &&
-                                               y<=(maxY (Rect (a,b) l2 w2))
-
+inside s1 s2 =  ((((minX s1)>=(minX s2) && (minX s1)<=(maxX s2)) ||
+                ((maxX s1)>=(minX s2) && (maxX s1)<=(maxX s2))) &&
+                (((minY s1)>=(minY s2) && (minY s1)<=(maxY s2)) ||
+                ((maxY s1)>=(minY s2) && (maxY s1)<=(maxY s2))))
+                ||
+                ((((minX s1)<=(minX s2) && (maxX s1)>=(maxX s2)) ||
+                ((minX s1)>=(minX s2) && (maxX s1)<=(maxX s2))) &&
+                (((minY s1)<=(minY s2) && (maxY s1)>=(maxY s2)) ||
+                ((minY s1)>=(minY s2) && (maxY s1)<=(maxY s2))))
 
 
 f = [Pt (4,4), Circle(5,5) 3, Rect (3,3) 7 2]
