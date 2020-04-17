@@ -1,3 +1,5 @@
+module HW1types where
+
 import Data.List (nub,sort)
 
 type Node = Int
