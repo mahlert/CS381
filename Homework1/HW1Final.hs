@@ -33,6 +33,8 @@ b1 = [(1, 2), (2, 3), (3, 4)]
 b2 = [(1,2), (2,3)]
 b3 = [(2,3)]
 
+-- Exercise 1. Programming with Lists
+
 -- a. inserts an element into a multiset
 ins :: Eq a => a -> Bag a -> Bag a
 ins x [] = [(x, 1)]
@@ -98,16 +100,21 @@ size :: Bag a -> Int
 size [] = 0
 size ((element, counter):xs) = counter + size xs
 
+-- Exercise 2. Graphs
+
+-- a. Function that computes the list of nodes contained in a given graph.
 nodes :: Graph -> [Node]
 nodes [] = []
 nodes ((x,y):xs) = norm (x : y : nodes xs)
 
+-- b. Function that computes the list of successors for a node in a given graph.
 suc :: Node -> Graph -> [Node]
 suc a [] = []
 suc a ((x,y):xs)
    | a == x = (y : (suc a xs))
    | a /= x = suc a xs
 
+-- c. Function that remove sa node together with all of its incident edges from a graph.
 detach :: Node -> Graph -> Graph
 detach a [] = []
 detach a ((x,y):xs)
@@ -115,8 +122,11 @@ detach a ((x,y):xs)
    | a == y = detach a xs
    | otherwise = (x,y) : detach a xs
 
+-- d. Function that creates a cycle of any given number.
 cyc :: Int -> Graph
 cyc c = take c (zip [1..c+1] [2..c+1])
+
+--Exercise 3. Programming with Data Types
 
 main = print (map width [Pt (4,4), Circle(5,5) 3, Rect (3,3) 7 2])
 
