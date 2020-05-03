@@ -14,4 +14,7 @@ semS :: Cmd -> State -> (State, Lines)
 semS (Pen p) (x,y,z) = ((p,y,z),[(y,z,y,z)])
 --MoveTo
 semS (MoveTo a b) (x,y,z) = ((x,y,z), [(y,z,a,b)])
---Sequence Cmd (Recurvsive call?)
+--Sequence Cmd
+semS (Seq c c') (x,y,z) = (s2,l2)
+     where (s1,l1) = semS c (x,y,z)
+     	   (s2,l2) = semS c' s1
