@@ -29,14 +29,14 @@ recttc _												= TypeError
 rectTC :: Shape -> Maybe BBox
 rectTC X			= BBox
 rectTC (TD s1 s2) = if rectTC s1== (Just BBox) && rectTC s2== (Just BBox)
-						then	if sameW (Just s1) (Just s2)							
+						then	if sameW (Just s1) (Just s2)
 									then Just BBox
 									else Nothing
 					else Nothing
 rectTC (LR s1 s2) = if rectTC s1==BBox  (Just BBox) && rectTC s2== (Just BBox)
-						then	if sameH (Just s1) (Just s2)							
+						then	if sameH (Just s1) (Just s2)
 									then Just BBox
-									
+
 									else Nothing
 					else Nothing
 rectTC _			= Nothing
@@ -44,13 +44,13 @@ rectTC _			= Nothing
 
 
 sameW :: BBox -> BBox -> Bool
-sameW s1 s2 = if fst s1 == fst s2 
+sameW s1 s2 = if fst s1 == fst s2
 						then True
 						else False
 
 
 sameH :: BBox -> BBox -> Bool
-sameH s1 s2 = if snd s1 == snd s2 
+sameH s1 s2 = if snd s1 == snd s2
 						then True
 						else False
 
