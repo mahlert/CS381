@@ -1,0 +1,10 @@
+/* 2a */
+rdup([], M) :- M.
+rdup(X|X|L, M) :- rdup(X|L, M).
+rdup(X|L, M) :- rdup(L, X|M) .
+
+||||||Or is it:|||||| 
+
+rdup([], M) :- M.
+rdup(X|X|L, X|M) :- rdup(L, M).
+rdup(X|L, X|M) :- rdup(L, M).
