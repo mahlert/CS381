@@ -43,6 +43,8 @@ rdup([X|L], [X|M]) :- rdup(L, M).
 
 flat([], M) :- M=[].
 flat([[X]|L], M) :- flat([X|L],M).
+flat([[]|L], M) :- flat([L],M).
+flat([[X|Y]|L], M) :- flat([X,Y|L],M), Y\=[].
 flat([X|L], [X|M]) :- flat(L, M).
 
 
