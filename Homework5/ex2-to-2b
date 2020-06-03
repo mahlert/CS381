@@ -1,11 +1,17 @@
-/* 2a */
-rdup([], M).
+/* Exercise 2 */
+
+rdup([], M) :- M=[].
 rdup([X,X|L], M) :- rdup([X|L], M).
 rdup([X|L], [X|M]) :- rdup(L, M).
 
 /* 2b */
 
-flat([], M). 
+flat([], M) :- M=[].
+flat([[]|L], M) :- flat([L], M).
 flat([[X]|L], M) :- flat([X|L],M).
+flat([[X|Y]|L], M) :- flat([X,Y|L],M), Y\=[].
 flat([X|L], [X|M]) :- flat(L, M).
+
+
+
 
