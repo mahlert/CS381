@@ -48,4 +48,13 @@ flat([[X|Y]|L], M) :- flat([X,Y|L],M), Y\=[].
 flat([X|L], [X|M]) :- flat(L, M).
 
 
+/* 2c */
+
+project(IL, BL, M) :- phelp(IL, BL, 1|M).
+
+phelp(_, [], _|M) :- M=[].
+phelp([], _, _|M) :- M=[].
+phelp(I|IL, C|BL, I|M) :- K is I+1, append(C, M, NM), phelp(IL, BL, K|NM).
+phelp(N|IL, _|BL, I|M) :- I\=N, K is I+1, phelp(N|IL, BL, K|M).
+
 
