@@ -1,4 +1,7 @@
 /*Jaelyn Litzinger, Chris Perdriau, Tom Mahler, Connor Stettler*/
+
+redefine_system_predicate(when).
+
 /* Exercise 1 */
 
 when(275,10).
@@ -32,13 +35,13 @@ meet(S1, S2) :- schedule(S1,P,T), K is T+1, schedule(S2,P,K),S1\=S2.
 
 /* Exercise 2 */
 /* 2a */
-rdup([], M).
+rdup([], M) :- M=[].
 rdup([X,X|L], M) :- rdup([X|L], M).
 rdup([X|L], [X|M]) :- rdup(L, M).
 
 /* 2b */
 
-flat([], M).
+flat([], M) :- M=[].
 flat([[X]|L], M) :- flat([X|L],M).
 flat([X|L], [X|M]) :- flat(L, M).
 
